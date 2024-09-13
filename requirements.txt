@@ -1,0 +1,8 @@
+tqdm
+tiktoken
+ipykernel
+openai
+elasticsearch
+pandas
+python-dotenv
+groq
