@@ -1,12 +1,15 @@
+from typing import Literal
 from groq import Groq
 from dotenv import dotenv_values
 from elasticsearch import Elasticsearch
 from sentence_transformers import SentenceTransformer
-from constants import INDEX_NAME, DEFAULT_MODEL
+from .constants import INDEX_NAME, DEFAULT_MODEL
 import os
 
+env_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.env"))
+config = dotenv_values(env_path)
 os.environ["HF_HOME"] = "/tmp"
-config = dotenv_values("../.env")
+
 client = Groq(
     api_key=config["GROQ_API_KEY"],
 )
@@ -72,10 +75,9 @@ def build_prompt(query: str, search_results: list) -> str:
     context = ""
 
     for doc in search_results:
-        context += f'section: {doc["section"]}\nquestion: {doc["question"]}\nanswer:: {doc["text"]}\n\n'
+        context += f'episode title: {doc["title"]}\nepisode id: {doc["id"]}\ntranscript excerpt: {doc["chunk"]}\n\n'
 
-    prompt_template = """You're a course teaching assistant. You will answer QUESTION using information from CONTEXT only.
-
+    prompt_template = """You're an archivist for the transcripts of the podcast The Tim Ferriss Show. You will answer QUESTION using information from CONTEXT only.
     QUESTION: {question}
 
     CONTEXT:
@@ -83,3 +85,16 @@ def build_prompt(query: str, search_results: list) -> str:
     """
     prompt = prompt_template.format(question=query, context=context).strip()
     return prompt
+
+
+def rag(
+    es_client: Elasticsearch,
+    query: str,
+    model: str = DEFAULT_MODEL,
+    search_type: Literal["keyword", "semantic", "both"] = "keyword",
+) -> str | None:
+    if search_type == "keyword":
+        search_results = elastic_keyword_search(es_client, query)
+
+    prompt = build_prompt(query, search_results)
+    return llm(prompt, model)
