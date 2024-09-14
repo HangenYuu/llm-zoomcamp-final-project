@@ -6,3 +6,4 @@ elasticsearch
 pandas
 python-dotenv
 groq
+sentence-transformers
