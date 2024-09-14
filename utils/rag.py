@@ -21,7 +21,7 @@ client = OpenAI(
     api_key="ollama",
 )
 
-model = SentenceTransformer("multi-qa-mpnet-base-cos-v1")
+# model = SentenceTransformer("multi-qa-mpnet-base-cos-v1")
 
 
 def elastic_keyword_search(
