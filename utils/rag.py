@@ -3,7 +3,9 @@ from dotenv import dotenv_values
 from elasticsearch import Elasticsearch
 from sentence_transformers import SentenceTransformer
 from constants import INDEX_NAME, DEFAULT_MODEL
+import os
 
+os.environ["HF_HOME"] = "/tmp"
 config = dotenv_values("../.env")
 client = Groq(
     api_key=config["GROQ_API_KEY"],

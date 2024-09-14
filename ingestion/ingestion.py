@@ -1,5 +1,5 @@
 from elasticsearch import Elasticsearch
-from tqdm.auto import tqdm
+from tqdm import tqdm
 from utils.constants import INDEX_NAME
 
 
@@ -25,7 +25,7 @@ def ingest_documents(
             }
         },
     }
-
-    es_client.indices.create(index=index_name, body=index_settings)
+    if not (es_client.indices.exists(INDEX_NAME)):
+        es_client.indices.create(index=index_name, body=index_settings)
     for doc in tqdm(documents):
         es_client.index(index=index_name, document=doc)
