@@ -14,6 +14,13 @@ client = Groq(
     api_key=config["GROQ_API_KEY"],
 )
 
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="http://localhost:11434/v1/",
+    api_key="ollama",
+)
+
 model = SentenceTransformer("multi-qa-mpnet-base-cos-v1")
 
 
@@ -58,17 +65,22 @@ def elastic_semantic_search(
 
 
 def llm(prompt: str, model: str = DEFAULT_MODEL) -> str | None:
-    chat_completion = client.chat.completions.create(
-        messages=[
-            {
-                "role": "user",
-                "content": prompt,
-            }
-        ],
-        model=model,
+    # chat_completion = client.chat.completions.create(
+    #     messages=[
+    #         {
+    #             "role": "user",
+    #             "content": prompt,
+    #         }
+    #     ],
+    #     model=model,
+    # )
+
+    # return chat_completion.choices[0].message.content
+    response = client.chat.completions.create(
+        model="phi3", messages=[{"role": "user", "content": prompt}]
     )
 
-    return chat_completion.choices[0].message.content
+    return response.choices[0].message.content
 
 
 def build_prompt(query: str, search_results: list) -> str:
