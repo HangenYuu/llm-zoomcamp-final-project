@@ -20,7 +20,7 @@ client = Groq(
 #     api_key="ollama",
 # )
 
-# model = SentenceTransformer("multi-qa-mpnet-base-cos-v1")
+# embedding_model = SentenceTransformer("multi-qa-mpnet-base-cos-v1")
 
 
 def elastic_keyword_search(
@@ -61,7 +61,12 @@ def elastic_semantic_search(
         "k": 5,
         "num_candidates": 10000,
     }
+    response = es_client.search(index=index_name, knn=knn_query)
+    result_docs = []
 
+    for hit in response["hits"]["hits"]:
+        result_docs.append(hit["_source"])
+    return result_docs
 
 def llm(prompt: str, model: str = DEFAULT_MODEL) -> str | None:
     chat_completion = client.chat.completions.create(
@@ -97,10 +102,13 @@ def rag(
     es_client: Elasticsearch,
     query: str,
     model: str = DEFAULT_MODEL,
+    embedding_model: SentenceTransformer | None = None,
     search_type: Literal["keyword", "semantic", "both"] = "keyword",
 ) -> str | None:
     if search_type == "keyword":
         search_results = elastic_keyword_search(es_client, query)
+    elif search_type == "semantic":
+        search_results = elastic_semantic_search(es_client, query, embedding_model)
 
     prompt = build_prompt(query, search_results)
     return llm(prompt, model)

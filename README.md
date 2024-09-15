@@ -4,7 +4,7 @@ This is my final project for DataTalk.Club LLM Zoomcamp.
 - [Progress](#progress)
 - [Points](#points)
 - [Problem Statement](#problem-statement)
-- [Workflow](#workflow)
+- [Architecture](#architecture)
 - [How to Run the App](#how-to-run-the-app)
 - [Development Details](#development-details)
 - [FAQs](#faqs)
@@ -67,11 +67,39 @@ Best practices
 # Problem Statement
 While I am not a regular follower of Tim Ferriss' podcast (which supposedly is one of the most famous right now), I sometimes check out the episode transcript, especially if the guest is someone I admire (e.g., Derek Sivers). But after 10 years and over 700 episodes, the content can be intimidating to read, and the gems hard to search for. That's when retrieval-augmented generation can help. Semantic vector search can help looks for relevant passages, and LLMs can process the different passages into appropriate answer.
 
-One-sentence summary is creating a RAG app to let it easier to search for content in the Tim Ferriss Show.
+One-sentence summary is **creating a RAG app to let it easier to search for content in the Tim Ferriss Show**.
 
-# Workflow
+# Architecture
+
 
 # How to Run the App
+The app was created using GitHub Codespace, which is basically a Python environment on a Linux machine. Hence, it was the easiest to run using a (virtual) Linux machine, Ubuntu in particular.
+
+1. Create a new virtual environment. For example, using conda
+```bash
+conda create -n llm
+conda activate llm
+# (Optional) Install uv for faster package installation
+pip install uv
+```
+2. Install dependencies (`uv` is optional)
+```bash
+uv pip install torch --index-url https://download.pytorch.org/whl/cpu
+uv pip install -r requirements.txt
+```
+3. Download data from HuggingFace by running the script in `data` folder
+```bash
+bash data/download.sh
+```
+4. Started the app with Docker Compose
+```bash
+docker-compose up
+```
+5. **After ElasticSearch container is initialized**, ingest the data in by running script in tyhe `ingestion` folder.
+```bash
+python ingestion/ingestion.py
+```
+6. **After the data are fully ingested**, you can start using the app via the Streamlit UI.
 
 # Development Details
 
