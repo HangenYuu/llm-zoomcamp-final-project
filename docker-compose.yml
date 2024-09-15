@@ -10,13 +10,12 @@ services:
       - "9300:9300"
     mem_limit: 4g
 
-  ollama:
-    image: ollama/ollama
-    container_name: ollama
-    volumes:
-      - ollama:/root/.ollama
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      DATA_PATH: "data/data.csv"
     ports:
-      - "11434:11434"
-
-volumes:
-  ollama:
+      - "${APP_PORT:-5000}:5000"

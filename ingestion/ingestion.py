@@ -1,21 +1,31 @@
-from typing import Iterable
+from pathlib import Path
 from elasticsearch import Elasticsearch
 from tqdm import tqdm
+import ijson
+from argparse import ArgumentParser
+
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+from utils.data import ingest_documents
 from utils.constants import INDEX_NAME, DEFAULT_ES_SETTINGS
 
 
-def ingest_documents(
-    document: Iterable | dict,
-    es_client: Elasticsearch,
-    index_name: str = INDEX_NAME,
-    index_settings: dict = DEFAULT_ES_SETTINGS,
-):
-    if not (es_client.indices.exists(index=INDEX_NAME)):
-        es_client.indices.create(index=index_name, body=index_settings)
+def main():
+    parser = ArgumentParser()
+    parser.add_argument("-p", "--path", default="data/chunked_embedded_data.json")
 
-    if isinstance(document, dict):
-        es_client.index(index=index_name, document=document)
-        return
+    args = parser.parse_args()
+    filepath = Path(args.path)
 
-    for doc in tqdm(document):
-        es_client.index(index=index_name, document=doc)
+    es_client = Elasticsearch("http://127.0.0.1:9200")
+
+    with open(filepath, "rt") as f:
+        for item in tqdm(ijson.items(f, "item")):
+            ingest_documents(item, es_client, INDEX_NAME, DEFAULT_ES_SETTINGS)
+
+
+if __name__ == "__main__":
+    main()
