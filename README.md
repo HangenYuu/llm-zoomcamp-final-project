@@ -1,18 +1,30 @@
-# llm-zoomcamp-final-project
-Final project for DataTalk.Club LLM Zoomcamp
-Steps:
+# The Tim Ferriss Show Archivist
+This is my final project for DataTalk.Club LLM Zoomcamp.
+- [The Tim Ferriss Show Archivist](#the-tim-ferriss-show-archivist)
+- [Progress](#progress)
+- [Points](#points)
+- [Problem Statement](#problem-statement)
+- [Workflow](#workflow)
+- [How to Run the App](#how-to-run-the-app)
+- [Development Details](#development-details)
+- [FAQs](#faqs)
+
+
+# Progress
 - [x] 1. Scrape the data.
 - [x] 2. Chunk the data.
 - [x] 3. Tokenize the data.
 - [x] 4. Ingest the data into an ElasticSearch Docker
 - [x] 5. Perform RAG trial with Groq API & Phi-3 (Ollama)
-- [ ] 6. Build an UI for the app
+- [x] 6. Build an UI for the app
 - [ ] 7. Perform Evaluations with GPT-4o
 - [ ] 8. Build a dashboard for evalution
 - [ ] 9. Best practices: Hybrid search, Document re-ranking
 - [ ] 10. Cloud deployment: HuggingFace Space (no monitoring)
 
 # Points
+To save you the trouble of looking for the project criteria, I put my marks here. You can double-check while reading through the repo and running it.
+
 Problem description
 - [ ] 2 points: The problem is well-described and it's clear what problem the project solves
 
@@ -44,17 +56,21 @@ Monitoring
     2 points: User feedback is collected and there's a dashboard with at least 5 charts
 
 Containerization
-
-    0 points: No containerization
-    1 point: Dockerfile is provided for the main application OR there's a docker-compose for the dependencies only
-    2 points: Everything is in docker-compose
+- [ ] 2 points: Everything is in docker-compose
 
 Reproducibility
-
-    0 points: No instructions on how to run the code, the data is missing, or it's unclear how to access it
-    1 point: Some instructions are provided but are incomplete, OR instructions are clear and complete, the code works, but the data is missing
-    2 points: Instructions are clear, the dataset is accessible, it's easy to run the code, and it works. The versions for all dependencies are specified.
+- [ ] 2 points: Instructions are clear, the dataset is accessible, it's easy to run the code, and it works. The versions for all dependencies are specified.
 
 Best practices
+- [ ] Hybrid search: combining both text and vector search (at least evaluating it) (1 point)
 
-    Hybrid search: combining both text and vector search (at least evaluating it) (1 point)
+# Problem Statement
+While I am not a regular follower of Tim Ferriss' podcast (which supposedly is one of the most famous right now), I sometimes check out the episode transcript, especially if the guest is someone I admire (e.g., Derek Sivers). But after 10 years and over 700 episodes, the content can be intimidating to read, and the gems hard to search for. That's when retrieval-augmented generation can help. Semantic vector search can help looks for relevant passages, and LLMs can process the different passages into appropriate answer.
+
+# Workflow
+
+# How to Run the App
+
+# Development Details
+
+# FAQs
