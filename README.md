@@ -67,6 +67,8 @@ Best practices
 # Problem Statement
 While I am not a regular follower of Tim Ferriss' podcast (which supposedly is one of the most famous right now), I sometimes check out the episode transcript, especially if the guest is someone I admire (e.g., Derek Sivers). But after 10 years and over 700 episodes, the content can be intimidating to read, and the gems hard to search for. That's when retrieval-augmented generation can help. Semantic vector search can help looks for relevant passages, and LLMs can process the different passages into appropriate answer.
 
+One-sentence summary is creating a RAG app to let it easier to search for content in the Tim Ferriss Show.
+
 # Workflow
 
 # How to Run the App
