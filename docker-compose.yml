@@ -8,7 +8,7 @@ services:
     ports:
       - "${POSTGRES_PORT:-5432}:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - /tmp/postgres_data:/var/lib/postgresql/data
   
   grafana:
     image: grafana/grafana:latest
@@ -16,7 +16,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - grafana_data:/var/lib/grafana
+      - /tmp/grafana_data:/var/lib/grafana
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-admin}
     depends_on:
@@ -33,7 +33,7 @@ services:
       - "9300:9300"
     mem_limit: 4g
     volumes:
-      - elasticsearch_data:/usr/share/elasticsearch/data
+      - /tmp/elasticsearch_data:/usr/share/elasticsearch/data
 
   app:
     build:
