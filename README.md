@@ -1,101 +1,137 @@
 # The Tim Ferriss Show Archivist
+
+**The Tim Ferriss Show (TFS)** is one of the most popular podcast, focusing on "deconstructing world-class performers from eclectic areas (investing, chess, pro sports, etc.), digging deep to find the tools, tactics, and tricks that listeners can use". After 10 years and over 750 episodes, the content has grown to be intimidating to read and search for the gems.
+
+**The TFS Archivist** is a conversational AI that can help users search for the relevant idea from a specific guest/episode, saving the need of manually skimming through the library and the hour-long transcript.
+
 This is my final project for DataTalk.Club's [LLM Zoomcamp](https://github.com/DataTalksClub/llm-zoomcamp) - a free course about LLMs and RAG.
+
 - [The Tim Ferriss Show Archivist](#the-tim-ferriss-show-archivist)
 - [Progress](#progress)
 - [Points](#points)
-- [Problem Statement](#problem-statement)
+- [Overview](#overview)
 - [Architecture](#architecture)
 - [How to Run the App](#how-to-run-the-app)
 - [Development Details](#development-details)
 - [FAQs](#faqs)
 
-
 # Progress
-- [x] 1. Scrape the data.
-- [x] 2. Chunk the data.
-- [x] 3. Tokenize the data.
-- [x] 4. Ingest the data into an ElasticSearch Docker
-- [x] 5. Perform RAG trial with Groq API & Phi-3 (Ollama)
-- [x] 6. Build an UI for the app
-- [ ] 7. Perform Evaluations with GPT-4o
-- [ ] 8. Build a dashboard for evalution
-- [ ] 9. Best practices: Hybrid search, Document re-ranking
-- [ ] 10. Cloud deployment: HuggingFace Space (no monitoring)
+
+- [x] Scrape the data.
+- [x] Chunk the data.
+- [x] Tokenize the data.
+- [x] Ingest the data into an ElasticSearch Docker
+- [x] Perform RAG trial with Groq API & Phi-3 (Ollama)
+- [x] Build an UI for the app
+- [ ] Perform Evaluations with GPT-4o
+- [ ] Build a dashboard for evalution
+- [ ] Best practices: Hybrid search, Document re-ranking
+- [ ] Cloud deployment: HuggingFace Space (no monitoring)
 
 # Points
+
 To save you the trouble of looking for the project criteria, I put my marks here. You can double-check while reading through the repo and running it.
 
 Problem description
-- [ ] 2 points: The problem is well-described and it's clear what problem the project solves
+
+- [x] 2 points: The problem is well-described and it's clear what problem the project solves
 
 RAG flow
+
 - [x] 2 points: Both a knowledge base and an LLM are used in the RAG flow
 
 Retrieval evaluation
-- [ ] 2 points: Multiple retrieval approaches are evaluated, and the best one is used
 
-    Need to evaluate for both keyword and semantic search.
+- [x] 2 points: Multiple retrieval approaches are evaluated, and the best one is used
 
 RAG evaluation
+
 - [ ] 2 points: Multiple RAG approaches are evaluated, and the best one is used
 
-    LLM-as-a-Judge to evaluate 2 different models.
+      LLM-as-a-Judge to evaluate 2 different models.
 
 Interface
-- [ ] 2 points: **UI (e.g., Streamlit)**, web application (e.g., Django), or an API (e.g., built with FastAPI)
+
+- [x] 2 points: **UI (e.g., Streamlit)**, web application (e.g., Django), or an API (e.g., built with FastAPI)
 
 Ingestion pipeline
-- [ ] 2 points: Automated ingestion with **a Python script** or a special tool (e.g., Mage, dlt, Airflow, Prefect)
+
+- [x] 2 points: Automated ingestion with **a Python script** or a special tool (e.g., Mage, dlt, Airflow, Prefect)
 
 Monitoring
+
 - [ ] 2 points: User feedback is collected and there's a dashboard with at least 5 charts
 
-    Grafana dashboard
+      Grafana dashboard
 
 Containerization
+
 - [ ] 2 points: Everything is in docker-compose
 
 Reproducibility
+
 - [ ] 2 points: Instructions are clear, the dataset is accessible, it's easy to run the code, and it works. The versions for all dependencies are specified.
 
 Best practices
-- [ ] Hybrid search: combining both text and vector search (**at least evaluating it**) (1 point)
 
-# Problem Statement
-While I am not a regular follower of Tim Ferriss' podcast (which supposedly is one of the most famous right now), I sometimes check out the episode transcript, especially if the guest is someone I admire (e.g., Derek Sivers). But after 10 years and over 700 episodes, the content can be intimidating to read, and the gems hard to search for. That's when retrieval-augmented generation can help. Semantic vector search can help looks for relevant passages, and LLMs can process the different passages into appropriate answer.
+- [x] Hybrid search: combining both text and vector search (**at least evaluating it**) (1 point)
 
-One-sentence summary is **creating a RAG app to let it easier to search for content in the Tim Ferriss Show**.
+# Overview
 
-# Architecture
+The TFS Archivist lets user search for a specific content from an episode of The Tim Ferriss Show.
+
+Example use case incluces
+
+1. Search for background information about a guest.
+2. Search for the episode a guest appears in.
+3. Search for a specific idea that a guest mentioned in the show.
+
+# Dataset
+
+
+
+# App Architecture
+
 ![architecture](assets/RAG_Workflow.excalidraw.png)
 
 # How to Run the App
+
 The app was created using GitHub Codespace, which is basically a Python environment on a Linux machine. Hence, it was the easiest to run using a (virtual) Linux machine, Ubuntu in particular.
 
 1. Create a new virtual environment. For example, using conda
+
 ```bash
 conda create -n llm
 conda activate llm
 # (Optional) Install uv for faster package installation
 pip install uv
 ```
+
 2. Install dependencies (`uv` is optional)
+
 ```bash
 uv pip install torch --index-url https://download.pytorch.org/whl/cpu
 uv pip install -r requirements.txt
 ```
+
 3. Download data from HuggingFace by running the script in `data` folder
+
 ```bash
 bash data/download.sh
 ```
+
 4. Started the app with Docker Compose
+
 ```bash
 docker-compose up
 ```
+
 5. **After ElasticSearch container is initialized**, ingest the data in by running script in the `ingestion` folder.
+
 ```bash
 python ingestion/ingestion.py
 ```
+
 6. **After the data are fully ingested**, you can start using the app via the Streamlit UI.
 
 # Development Details

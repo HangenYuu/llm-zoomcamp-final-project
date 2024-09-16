@@ -20,14 +20,12 @@ client = Groq(
 #     api_key="ollama",
 # )
 
-embedding_model = SentenceTransformer("multi-qa-mpnet-base-cos-v1")
-
 
 def elastic_keyword_search(
     es_client: Elasticsearch, query: str, index_name: str = INDEX_NAME
 ) -> list:
     search_query = {
-        "size": 3,
+        "size": 5,
         "query": {
             "bool": {
                 "must": {
@@ -103,7 +101,7 @@ def rag(
     es_client: Elasticsearch,
     query: str,
     model: str = DEFAULT_MODEL,
-    embedding_model: SentenceTransformer | None = embedding_model,
+    embedding_model: SentenceTransformer | None = None,
     search_type: Literal["keyword", "semantic", "both"] = "semantic",
 ) -> str | None:
     if search_type == "keyword":
