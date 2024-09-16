@@ -5,6 +5,7 @@ elasticsearch
 pandas
 python-dotenv
 groq
-torch
 sentence-transformers
 streamlit
+psycopg2-binary
+pgcli

@@ -4,7 +4,6 @@ from dotenv import dotenv_values
 from elasticsearch import Elasticsearch
 from sentence_transformers import SentenceTransformer
 from .constants import INDEX_NAME, DEFAULT_MODEL
-from openai import OpenAI
 import os
 
 env_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.env"))
@@ -87,7 +86,7 @@ def build_prompt(query: str, search_results: list) -> str:
     for doc in search_results:
         context += f'episode title: {doc["title"]}\nepisode id: {doc["id"]}\ntranscript excerpt: {doc["chunk"]}\n\n'
 
-    prompt_template = """You're an archivist for the transcripts of the podcast The Tim Ferriss Show. You will answer QUESTION using information from CONTEXT only.
+    prompt_template = """You're a helpful archivist in charge of managing the transcripts of the podcast The Tim Ferriss Show. You help users answer their question based on the show transcript. You will answer QUESTION using information from CONTEXT only.
 QUESTION: {question}
 
 CONTEXT:
@@ -102,7 +101,7 @@ def rag(
     query: str,
     model: str = DEFAULT_MODEL,
     embedding_model: SentenceTransformer | None = None,
-    search_type: Literal["keyword", "semantic", "both"] = "semantic",
+    search_type: Literal["keyword", "semantic"] = "keyword",
 ) -> str | None:
     if search_type == "keyword":
         search_results = elastic_keyword_search(es_client, query)

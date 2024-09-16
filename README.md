@@ -10,8 +10,11 @@ This is my final project for DataTalk.Club's [LLM Zoomcamp](https://github.com/D
 - [Progress](#progress)
 - [Points](#points)
 - [Overview](#overview)
-- [Architecture](#architecture)
+- [Dataset](#dataset)
+- [App Architecture](#app-architecture)
 - [How to Run the App](#how-to-run-the-app)
+  - [Docker Compose](#docker-compose)
+  - [Development](#development)
 - [Development Details](#development-details)
 - [FAQs](#faqs)
 
@@ -23,10 +26,9 @@ This is my final project for DataTalk.Club's [LLM Zoomcamp](https://github.com/D
 - [x] Ingest the data into an ElasticSearch Docker
 - [x] Perform RAG trial with Groq API & Phi-3 (Ollama)
 - [x] Build an UI for the app
-- [ ] Perform Evaluations with GPT-4o
+- [x] Perform Evaluations with GPT-4o
 - [ ] Build a dashboard for evalution
-- [ ] Best practices: Hybrid search, Document re-ranking
-- [ ] Cloud deployment: HuggingFace Space (no monitoring)
+- [ ] Best practices
 
 # Points
 
@@ -46,9 +48,7 @@ Retrieval evaluation
 
 RAG evaluation
 
-- [ ] 2 points: Multiple RAG approaches are evaluated, and the best one is used
-
-      LLM-as-a-Judge to evaluate 2 different models.
+- [x] 2 points: Multiple RAG approaches are evaluated, and the best one is used
 
 Interface
 
@@ -74,7 +74,9 @@ Reproducibility
 
 Best practices
 
-- [x] Hybrid search: combining both text and vector search (**at least evaluating it**) (1 point)
+- [ ] Hybrid search: combining both text and vector search (**at least evaluating it**) (1 point)
+- [ ] Document re-ranking (1 point)
+- [ ] User query rewriting (1 point)
 
 # Overview
 
@@ -95,7 +97,9 @@ Example use case incluces
 ![architecture](assets/RAG_Workflow.excalidraw.png)
 
 # How to Run the App
+## Docker Compose
 
+## Development
 The app was created using GitHub Codespace, which is basically a Python environment on a Linux machine. Hence, it was the easiest to run using a (virtual) Linux machine, Ubuntu in particular.
 
 1. Create a new virtual environment. For example, using conda

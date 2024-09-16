@@ -1,0 +1,14 @@
+.vscode
+assets
+data
+grafana
+ingestion
+notebooks
+ollama
+scrape
+.gitignore
+docker-compose.yml
+LICENSE
+README.md
+streamlit.sh
+requirements.txt
