@@ -93,7 +93,7 @@ bash data/download.sh
 ```bash
 docker-compose up
 ```
-5. **After ElasticSearch container is initialized**, ingest the data in by running script in tyhe `ingestion` folder.
+5. **After ElasticSearch container is initialized**, ingest the data in by running script in the `ingestion` folder.
 ```bash
 python ingestion/ingestion.py
 ```
