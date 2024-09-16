@@ -1,8 +1,6 @@
 .vscode
 assets
 data
-grafana
-ingestion
 notebooks
 ollama
 scrape
@@ -12,3 +10,4 @@ LICENSE
 README.md
 streamlit.sh
 requirements.txt
+streamlit.sh

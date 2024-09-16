@@ -1,5 +1,6 @@
 INDEX_NAME = "tf_transcript"
 DEFAULT_MODEL = "llama3-8b-8192"
+MODEL_NAME = "multi-qa-mpnet-base-cos-v1"
 DEFAULT_ES_SETTINGS = {
     "settings": {"number_of_shards": 1, "number_of_replicas": 0},
     "mappings": {

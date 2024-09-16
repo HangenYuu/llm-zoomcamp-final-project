@@ -14,11 +14,6 @@ client = Groq(
     api_key=config["GROQ_API_KEY"],
 )
 
-# client = OpenAI(
-#     base_url="http://localhost:11434/v1/",
-#     api_key="ollama",
-# )
-
 
 def elastic_keyword_search(
     es_client: Elasticsearch, query: str, index_name: str = INDEX_NAME
