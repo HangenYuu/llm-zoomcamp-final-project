@@ -33,13 +33,11 @@ RAG flow
 
 Retrieval evaluation
 
-    0 points: No evaluation of retrieval is provided
     1 point: Only one retrieval approach is evaluated
     2 points: Multiple retrieval approaches are evaluated, and the best one is used
 
 RAG evaluation
 
-    0 points: No evaluation of RAG is provided
     1 point: Only one RAG approach (e.g., one prompt) is evaluated
     2 points: Multiple RAG approaches are evaluated, and the best one is used
 
@@ -70,7 +68,7 @@ While I am not a regular follower of Tim Ferriss' podcast (which supposedly is o
 One-sentence summary is **creating a RAG app to let it easier to search for content in the Tim Ferriss Show**.
 
 # Architecture
-
+![architecture](assets/RAG_Workflow.excalidraw.png)
 
 # How to Run the App
 The app was created using GitHub Codespace, which is basically a Python environment on a Linux machine. Hence, it was the easiest to run using a (virtual) Linux machine, Ubuntu in particular.
