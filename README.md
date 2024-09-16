@@ -1,5 +1,5 @@
 # The Tim Ferriss Show Archivist
-This is my final project for DataTalk.Club LLM Zoomcamp.
+This is my final project for DataTalk.Club's [LLM Zoomcamp](https://github.com/DataTalksClub/llm-zoomcamp) - a free course about LLMs and RAG.
 - [The Tim Ferriss Show Archivist](#the-tim-ferriss-show-archivist)
 - [Progress](#progress)
 - [Points](#points)
@@ -29,29 +29,28 @@ Problem description
 - [ ] 2 points: The problem is well-described and it's clear what problem the project solves
 
 RAG flow
-- [ ] 2 points: Both a knowledge base and an LLM are used in the RAG flow
+- [x] 2 points: Both a knowledge base and an LLM are used in the RAG flow
 
 Retrieval evaluation
+- [ ] 2 points: Multiple retrieval approaches are evaluated, and the best one is used
 
-    1 point: Only one retrieval approach is evaluated
-    2 points: Multiple retrieval approaches are evaluated, and the best one is used
+    Need to evaluate for both keyword and semantic search.
 
 RAG evaluation
+- [ ] 2 points: Multiple RAG approaches are evaluated, and the best one is used
 
-    1 point: Only one RAG approach (e.g., one prompt) is evaluated
-    2 points: Multiple RAG approaches are evaluated, and the best one is used
+    LLM-as-a-Judge to evaluate 2 different models.
 
 Interface
-- [ ] 2 points: UI (e.g., Streamlit), web application (e.g., Django), or an API (e.g., built with FastAPI)
+- [ ] 2 points: **UI (e.g., Streamlit)**, web application (e.g., Django), or an API (e.g., built with FastAPI)
 
 Ingestion pipeline
-- [ ] 2 points: Automated ingestion with a Python script or a special tool (e.g., Mage, dlt, Airflow, Prefect)
+- [ ] 2 points: Automated ingestion with **a Python script** or a special tool (e.g., Mage, dlt, Airflow, Prefect)
 
 Monitoring
+- [ ] 2 points: User feedback is collected and there's a dashboard with at least 5 charts
 
-    0 points: No monitoring
-    1 point: User feedback is collected OR there's a monitoring dashboard
-    2 points: User feedback is collected and there's a dashboard with at least 5 charts
+    Grafana dashboard
 
 Containerization
 - [ ] 2 points: Everything is in docker-compose
@@ -60,7 +59,7 @@ Reproducibility
 - [ ] 2 points: Instructions are clear, the dataset is accessible, it's easy to run the code, and it works. The versions for all dependencies are specified.
 
 Best practices
-- [ ] Hybrid search: combining both text and vector search (at least evaluating it) (1 point)
+- [ ] Hybrid search: combining both text and vector search (**at least evaluating it**) (1 point)
 
 # Problem Statement
 While I am not a regular follower of Tim Ferriss' podcast (which supposedly is one of the most famous right now), I sometimes check out the episode transcript, especially if the guest is someone I admire (e.g., Derek Sivers). But after 10 years and over 700 episodes, the content can be intimidating to read, and the gems hard to search for. That's when retrieval-augmented generation can help. Semantic vector search can help looks for relevant passages, and LLMs can process the different passages into appropriate answer.
