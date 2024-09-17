@@ -21,7 +21,6 @@ This is my final project for DataTalk.Club's [LLM Zoomcamp](https://github.com/D
   - [Using the App](#using-the-app)
 - [Code](#code)
 - [Experiments](#experiments)
-  - [Embedding length](#embedding-length)
   - [Retrieval evaluation](#retrieval-evaluation)
   - [RAG model evalution](#rag-model-evalution)
 - [Monitoring](#monitoring)
@@ -214,17 +213,68 @@ https://www.loom.com/share/1c3e150ea6c04e9bb21f13c295e201d3
 
 
 # Code
-
-
+- `notebooks` - contain experiment notebooks and first prototype
+- `scrape` - contain notebook used to scrape and process the data
+- `utils` - util functions
+- `app.py` - the main app logic
+- `assistant.py` - the main RAG logic for building the retrieving the data and building the prompt
+- `ingestion.py` - loading the data into the knowledge base
+- `db.py` - the logic for logging the requests and responses to postgres database
+- `prep.py` - the script for initializing the database
 
 # Experiments
+> **Note:** Due to a gross mistake on my part during transfer between different GitHub Codespace (I broke the last one), the experiment data were lost. Only the data as the output of the notebooks remain 😔.
 
-## Embedding length
+2 Jupyter notebooks in the `notebooks` folder.
+- `evaluation_data_generation.ipynb` - Ground truth dataset generation.
+- `evaluation_rag.ipynb` - The retrieval and RAG evaluation.
 
 ## Retrieval evaluation
 
+Vector approximate search (10,000 sample (max setting for ElasticSearch), top-5, cosine similarity)
+- Chunk Hit Rate: 0.3820558526440879,
+- Chunk MRR: 0.44081501287383695,
+- Document Hit Rate: 0.6316102198455139,
+- Document MRR: 0.9488710635769462
+
+Keyword search (chunk and title, no boosting, top-5)
+- Chunk Hit Rate: 0.7890671420083185,
+- Chunk MRR: 1.0368785898197679,
+- Document Hit Rate: 0.8722519310754605,
+- Document MRR: 1.571390374331495
+
+Keyword search performed better. Due to time constraint, I did not test boosting for keyword search. To do so, we can use `minsearch.py` as an approximate to perform simple optimization, and then use the setting for ElasticSearch.
+
 ## RAG model evalution
+
+I evaluated the new `llama-3.1-8b-instant` and the older `llama3-8b-8192` from Groq using GPT-4o-mini as a judge, using 103 samples.
+
+> The odd number of sample is due to rate limit from Groq!
+
+Llama 3:
+```bash
+relevance
+RELEVANT           0.737864
+PARTLY_RELEVANT    0.174757
+NON_RELEVANT       0.087379
+```
+Llama 3.1
+```bash
+relevance
+RELEVANT           0.718447
+PARTLY_RELEVANT    0.165049
+NON_RELEVANT       0.116505
+```
+Based on the 103 samples, GPT-4o-mini judged that Llama-3 8B has some edge over the new Llama-3.1 8B, though it's just 1-2 questions different. Considering they are both free, I used both.
+
+> A further evaluation would be to try Llama-3 70B to see if the increased size can lead to a better performance, and if it's worth the cost.
 
 # Monitoring
 
+A postgres DB was set up as the backend for monitoring, storing the conversations as well as user feedback. However, due to disk space constraint, I cannot set up Grafana dashboard.
+
 # Acknowledgements
+
+I would like to thank DataTalks.Club and all the guests and sponsors for the quality content of the course, all totally free.
+
+And I hope you, the reviewer, enjoyed doing the course as much as I do ⸜(｡˃ ᵕ ˂ )⸝♡
