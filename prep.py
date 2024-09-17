@@ -10,8 +10,6 @@ load_dotenv()
 
 ELASTIC_URL = os.getenv("ELASTIC_URL_LOCAL")
 
-BASE_URL = "https://github.com/DataTalksClub/llm-zoomcamp/blob/main"
-
 
 def download_huggingface_data():
     print("Downloading data from Hugging Face...")
@@ -35,9 +33,11 @@ def setup_elasticsearch():
     print("Setting up Elasticsearch...")
     es_client = Elasticsearch(ELASTIC_URL)
 
-    es_client.indices.delete(index=INDEX_NAME, ignore_unavailable=True)
-    es_client.indices.create(index=INDEX_NAME, body=DEFAULT_ES_SETTINGS)
-    print(f"Elasticsearch index '{INDEX_NAME}' created")
+    if not es_client.indices.exists(index=INDEX_NAME):
+        es_client.indices.create(index=INDEX_NAME, body=DEFAULT_ES_SETTINGS)
+        print(f"Elasticsearch index '{INDEX_NAME}' created")
+    else:
+        print(f"Elasticsearch index '{INDEX_NAME}' already created")
 
 
 def main():

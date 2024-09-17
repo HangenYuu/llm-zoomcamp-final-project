@@ -77,7 +77,7 @@ def evaluate_relevance(question: str, answer: str):
     """.strip()
 
     prompt = prompt_template.format(question=question, answer=answer)
-    evaluation, tokens, _ = llm(prompt, "groq/llama-guard-3-8b")
+    evaluation, tokens, _ = llm(prompt, "groq/llama3-70b-8192")
 
     try:
         json_eval = json.loads(evaluation)

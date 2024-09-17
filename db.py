@@ -10,9 +10,9 @@ tz = ZoneInfo("Asia/Singapore")
 def get_db_connection():
     return psycopg2.connect(
         host=os.getenv("POSTGRES_HOST", "postgres"),
-        database=os.getenv("POSTGRES_DB", "course_assistant"),
-        user=os.getenv("POSTGRES_USER", "your_username"),
-        password=os.getenv("POSTGRES_PASSWORD", "your_password"),
+        database=os.getenv("POSTGRES_DB", "tfs_archivist"),
+        user=os.getenv("POSTGRES_USER", "admin"),
+        password=os.getenv("POSTGRES_PASSWORD", "admin"),
     )
 
 
@@ -104,6 +104,13 @@ def save_feedback(conversation_id, feedback, timestamp=None):
     conn = get_db_connection()
     try:
         with conn.cursor() as cur:
+            # Check if the conversation exists
+            cur.execute("SELECT 1 FROM conversations WHERE id = %s", (conversation_id,))
+            if cur.fetchone() is None:
+                raise ValueError(
+                    f"Conversation ID {conversation_id} does not exist in conversations table."
+                )
+
             cur.execute(
                 "INSERT INTO feedback (conversation_id, feedback, timestamp) VALUES (%s, %s, COALESCE(%s, CURRENT_TIMESTAMP))",
                 (conversation_id, feedback, timestamp),

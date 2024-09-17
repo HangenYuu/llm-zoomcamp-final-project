@@ -1,0 +1,15 @@
+tqdm
+ipykernel
+openai
+elasticsearch
+pandas
+ijson
+python-dotenv
+groq
+sentence-transformers
+streamlit
+psycopg2-binary
+pgcli
+
+--find-links https://download.pytorch.org/whl/cpu/torch_stable.html
+torch==2.3.1+cpu

@@ -22,9 +22,7 @@ def main():
     # Session state initialization
     if "conversation_id" not in st.session_state:
         st.session_state.conversation_id = str(uuid.uuid4())
-        print_log(
-            f"New conversation started with ID: {st.session_state.conversation_id}"
-        )
+    print_log(f"New conversation started with ID: {st.session_state.conversation_id}")
     if "count" not in st.session_state:
         st.session_state.count = 0
         print_log("Feedback count initialized to 0")
@@ -73,11 +71,9 @@ def main():
             print_log("Saving conversation to database")
             save_conversation(st.session_state.conversation_id, user_input, answer_data)
             print_log("Conversation saved successfully")
-            # Generate a new conversation ID for next question
-            st.session_state.conversation_id = str(uuid.uuid4())
 
     # Feedback buttons
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
     with col1:
         if st.button("+1"):
             st.session_state.count += 1
@@ -86,6 +82,10 @@ def main():
             )
             save_feedback(st.session_state.conversation_id, 1)
             print_log("Positive feedback saved to database")
+            st.session_state.conversation_id = str(uuid.uuid4())
+            print_log(
+                f"New conversation started with ID: {st.session_state.conversation_id}"
+            )
     with col2:
         if st.button("-1"):
             st.session_state.count -= 1
@@ -94,6 +94,16 @@ def main():
             )
             save_feedback(st.session_state.conversation_id, -1)
             print_log("Negative feedback saved to database")
+            st.session_state.conversation_id = str(uuid.uuid4())
+            print_log(
+                f"New conversation started with ID: {st.session_state.conversation_id}"
+            )
+    with col3:
+        if st.button("New Conversation"):
+            st.session_state.conversation_id = str(uuid.uuid4())
+            print_log(
+                f"New conversation started with ID: {st.session_state.conversation_id}"
+            )
 
     st.write(f"Current count: {st.session_state.count}")
 
