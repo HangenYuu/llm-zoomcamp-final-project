@@ -130,7 +130,8 @@ Technologies used:
 - Docker and Docker Compose for containerization
 - ElasticSearch for full-text search (and semantic search during evaluation)
 - Streamlit as both the app backend and frontend
-- PostgreSQL as the backend for monitoring (I ran out of disk space for Grafana 🥲)
+- PostgreSQL as the backend for monitoring
+- Grafana as monitoring dashboard
 - OpenAI and Groq as possible LLMs
 
 # 8. How to Run the App
